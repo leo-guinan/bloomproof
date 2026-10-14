@@ -6,7 +6,7 @@
 // predev/prebuild npm hooks, so `npm run dev` and `npm run build` always
 // regenerate it. Fails loudly on malformed entries — a bad file breaks
 // the build instead of shipping a broken story.
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -119,5 +119,6 @@ const files = readdirSync(entriesDir, { withFileTypes: true })
   .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
 if (!files.length) fail('(entries)', 'no entries/NNN-*.md files found')
 const entries = files.map(parseEntry)
+mkdirSync(dirname(outFile), { recursive: true })
 writeFileSync(outFile, JSON.stringify(entries, null, 2) + '\n')
 console.log(`generate-data: ${entries.length} entries → src/data/entries.generated.json`)
