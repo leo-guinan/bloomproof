@@ -10,7 +10,6 @@ MegaDetector, from Microsoft's AI for Good Lab, scans camera-trap images and fin
 
 ## Artifact
 
-- Live site: https://huggingface.co/spaces/ai-for-good-lab/pytorch-wildlife — upload an image, no install
 - Code: https://github.com/microsoft/MegaDetector — the detector itself: model, pip-install quickstart, and docs (67 commits, active)
 - Open license: MIT (declared LICENSE file, verified 2026-10-14)
 

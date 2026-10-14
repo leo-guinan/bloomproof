@@ -47,6 +47,26 @@ export const seedEntries = [
     createdAt: '2026-10-12'
   },
   {
+    id: '003',
+    number: '003',
+    title: '925,000 photos, sorted by rangers and AI',
+    problem:
+      'Indigenous rangers in Australia’s Warddeken Indigenous Protected Area run camera traps to monitor wildlife — but 70 to 95 percent of the roughly 925,000 images come back empty: wind, rain, leaves. Sorting them by hand took six months per survey round, stealing time from actual land management.',
+    solution:
+      'MegaDetector, from Microsoft’s AI for Good Lab, scans camera-trap images and finds animals, people, and vehicles — filtering out the blanks so rangers only review images with something in them.',
+    artifactType: 'repo',
+    kind: 'code',
+    artifactUrl: 'https://github.com/microsoft/MegaDetector',
+    artifactLicense: 'MIT',
+    extraLinks: [],
+    humanName: 'Bininj and daluk rangers, Warddeken Land Management',
+    humanQuote: '',
+    attachmentUrl: '',
+    origin: 'record',
+    status: 'published',
+    createdAt: '2026-10-14'
+  },
+  {
     id: '004',
     number: '004',
     title: 'A voice for 12 million speakers',

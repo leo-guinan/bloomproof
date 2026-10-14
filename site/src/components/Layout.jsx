@@ -6,6 +6,7 @@ export default function Layout({ count, children }) {
       <header className="site-head">
         <div className="wrap head-row">
           <Link className="brand" to="/">
+            <img className="brand-logo" src="/site-logo.png" alt="Bloom Proof" />
             <span className="brand-mark">
               Bloom <em>Proof</em>
             </span>
