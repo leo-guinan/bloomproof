@@ -1,0 +1,7 @@
+# Sensitive paths need owner review before merge.
+# (Enforced by branch protection's "require review from Codeowners" setting.)
+/.github/workflows/ @ttyyjjkkoott
+/site/scripts/ @ttyyjjkkoott
+/site/src/pages/Donate.jsx @ttyyjjkkoott
+/entries/template.md @ttyyjjkkoott
+/site/src/lib/store.js @ttyyjjkkoott
