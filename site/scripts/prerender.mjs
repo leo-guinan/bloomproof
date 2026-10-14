@@ -39,6 +39,15 @@ function fail(msg) {
   process.exit(1)
 }
 
+// Single-slot template fill: replaces exactly one occurrence and fails the
+// build otherwise, so a template change can never silently duplicate content
+// or leave a placeholder unfilled.
+function fillOnce(haystack, needle, replacement, what) {
+  const parts = haystack.split(needle)
+  if (parts.length !== 2) fail(`template has ${parts.length - 1} ${what} slots, expected exactly 1`)
+  return parts.join(replacement)
+}
+
 // React's HTML escaping for text nodes (used to verify renders).
 function reactEsc(s) {
   return String(s)
@@ -74,9 +83,10 @@ const templateFile = join(outDir, 'index.html')
 if (!existsSync(templateFile)) fail(`${templateFile} missing — the client build must run first`)
 const template = readFileSync(templateFile, 'utf8')
 if (!template.includes('<div id="root"></div>')) fail('template has no <div id="root"></div>')
-const homeTitle = template.match(/<title>(.*?)<\/title>/)?.[1] ?? fail('template has no <title>')
-const homeDesc =
-  template.match(/<meta name="description"[^>]*content="([^"]*)"/)?.[1] ?? fail('template has no meta description')
+const titleTag = template.match(/<title>.*?<\/title>/)?.[0] ?? fail('template has no <title>')
+const homeTitle = titleTag.slice(7, -8)
+const descTag = template.match(/<meta name="description"[^>]*>/)?.[0] ?? fail('template has no meta description')
+const homeDesc = descTag.match(/content="([^"]*)"/)?.[1] ?? fail('template meta description has no content')
 
 const SITE = 'https://bloomproof.org'
 const pageCount = totalPages(entries.length)
@@ -112,7 +122,8 @@ const pages = [
     desc: homeDesc,
     keepDesc: true,
     type: 'website',
-    expect: `See all ${entries.length} stories`
+    expect: 'see-all-text',
+    expectCount: { pattern: 'ledger-row', count: entries.length }
   }
 ]
 for (let n = 2; n <= pageCount; n += 1) {
@@ -150,11 +161,15 @@ const notFound = {
 // 3. Render every page.
 function buildPage(page) {
   const html = render(page.route)
-  // React inserts <!-- --> separators between text and expression children;
-  // strip them for the marker check (the emitted HTML stays byte-exact).
-  const text = (html || '').replace(/<!--[\s\S]*?-->/g, '')
-  if (!html || !text.includes(page.expect)) {
+  if (!html) fail(`route ${page.route} rendered empty — refusing to emit a broken page`)
+  if (page.expect && !html.includes(page.expect)) {
     fail(`route ${page.route} rendered without its marker — refusing to emit a broken page`)
+  }
+  if (page.expectCount != null) {
+    const found = html.split(page.expectCount.pattern).length - 1
+    if (found !== page.expectCount.count) {
+      fail(`route ${page.route} rendered ${found} ${page.expectCount.pattern} markers, expected ${page.expectCount.count}`)
+    }
   }
   if (html.includes('Gathering real stories')) fail(`route ${page.route} rendered the loading shell`)
   const og = [
@@ -164,15 +179,12 @@ function buildPage(page) {
     `<meta property="og:url" content="${SITE}${page.route === '/' ? '/' : page.route}">`,
     `<meta property="og:image" content="${SITE}/site-logo.png">`
   ].join('\n    ')
-  let out = template.replace('<div id="root"></div>', `<div id="root">${html}</div>`)
-  out = out.replace(/<title>.*?<\/title>/, `<title>${reactEsc(page.title)}</title>`)
+  let out = fillOnce(template, '<div id="root"></div>', `<div id="root">${html}</div>`, 'root div')
+  out = fillOnce(out, titleTag, `<title>${reactEsc(page.title)}</title>`, 'title tag')
   if (!page.keepDesc) {
-    out = out.replace(
-      /<meta name="description"[^>]*>/,
-      `<meta name="description" content="${attrEsc(page.desc)}">`
-    )
+    out = fillOnce(out, descTag, `<meta name="description" content="${attrEsc(page.desc)}">`, 'meta description')
   }
-  out = out.replace('\n  </head>', `\n    ${og}\n  </head>`)
+  out = fillOnce(out, '\n  </head>', `\n    ${og}\n  </head>`, 'head close')
   const dest = join(outDir, page.file)
   mkdirSync(dirname(dest), { recursive: true })
   writeFileSync(dest, out)
