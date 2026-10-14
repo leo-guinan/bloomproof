@@ -2,12 +2,11 @@ No working artifact, no entry.
 
 ## Submission checklist
 
-- [ ] Real problem stated (a human's problem, one paragraph)
-- [ ] Working artifact URL included (repo, live demo, dataset, or model weights)
-- [ ] Live artifact URL included (browser-usable now, or app link) — a repo alone is not enough
-- [ ] Artifact link verified alive (it loads and works right now)
-- [ ] Open license declared (MIT, Apache-2.0, CC BY-SA 4.0, or CC0)
-- [ ] Human helped named (their words if possible)
+- [ ] Story present (a real human's problem, one paragraph)
+- [ ] Code URL included (open-source repo, or open dataset)
+- [ ] Named human with real use shown (quote, photo, video, or documented outcome)
+- [ ] Open license stated (MIT, Apache-2.0, CC BY-SA 4.0, CC0, or similar)
+- [ ] Live site/app URL included if one exists (a repo alone is allowed — the badge will read "See the code")
 
 ## Notes for the reviewer
 

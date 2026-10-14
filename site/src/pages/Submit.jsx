@@ -28,7 +28,7 @@ function validate(v) {
   if (v.title.trim().length < 8) errors.title = 'Give it a clear name (at least 8 characters).'
   if (v.problem.trim().length < 30) errors.problem = 'Tell us a bit more — a sentence or two about the problem.'
   if (v.solution.trim().length < 30) errors.solution = 'Tell us a bit more — a sentence or two about what the project does.'
-  if (!/^https?:\/\/.+\..+/.test(v.liveSiteUrl.trim())) errors.liveSiteUrl = 'We need a link starting with http(s) — somewhere anyone can see it working right now.'
+  if (v.liveSiteUrl.trim() && !/^https?:\/\/.+\..+/.test(v.liveSiteUrl.trim())) errors.liveSiteUrl = 'That does not look like a link — it should start with http(s).'
   if (!/^https?:\/\/.+\..+/.test(v.codeUrl.trim())) errors.codeUrl = 'We need a link to the open code or dataset, starting with http(s).'
   if (!v.artifactLicense.trim()) errors.artifactLicense = 'Please pick the open license your project uses.'
   if (v.humanName.trim().length < 2) errors.humanName = 'Who did this help? A first name and what they do is perfect.'
@@ -51,10 +51,10 @@ function buildMarkdown(v) {
     '## Artifact',
     '',
     `- Type: ${v.artifactType}`,
-    `- Live site / App: ${v.liveSiteUrl.trim()}`,
     `- Code: ${v.codeUrl.trim()}`,
     `- Open license: ${v.artifactLicense.trim()}`
   ]
+  if (v.liveSiteUrl.trim()) lines.push(`- Live site / App: ${v.liveSiteUrl.trim()}`)
   if (v.mediaUrl.trim()) lines.push(`- Media: ${v.mediaUrl.trim()}`)
   lines.push('', '## Human', '', v.humanName.trim())
   if (v.humanQuote.trim()) lines.push('', `> ${v.humanQuote.trim()}`)
@@ -89,11 +89,13 @@ export default function Submit({ onAdded }) {
     setErrors(errs)
     if (Object.keys(errs).length) return
     try {
+      const liveSite = values.liveSiteUrl.trim()
       const entry = await submitEntry({
         ...values,
         attachmentUrl: values.mediaUrl.trim(),
-        artifactUrl: values.liveSiteUrl.trim(),
-        extraLinks: [{ label: 'Code', url: values.codeUrl.trim() }]
+        artifactUrl: liveSite || values.codeUrl.trim(),
+        extraLinks: liveSite ? [{ label: 'Code', url: values.codeUrl.trim() }] : [],
+        kind: liveSite ? 'live' : 'code'
       })
       onAdded(entry)
       setSaved(entry)
@@ -186,14 +188,14 @@ export default function Submit({ onAdded }) {
 
         <div className="form-group">
           <h3>2. The project itself</h3>
-          <p>This is the proof: a link to the working thing, shared openly so anyone can try it.</p>
+          <p>This is the proof: the open code, plus a live site or app link if there is one.</p>
           <div className="field">
             <label htmlFor="solution">What does your project do?</label>
             <textarea id="solution" value={values.solution} onChange={(e) => set('solution', e.target.value)} placeholder="Explain it like you would to a neighbor…" />
             {errors.solution && <div className="field-error">{errors.solution}</div>}
           </div>
           <div className="field">
-            <label htmlFor="liveSiteUrl">Link to the live artifact — a page that works right now in the browser, no install (or a link to the mobile/desktop app)</label>
+            <label htmlFor="liveSiteUrl">Link to the live site or app, if there is one — where can anyone see it working right now? (Leave blank if it's code only.)</label>
             <input id="liveSiteUrl" inputMode="url" value={values.liveSiteUrl} onChange={(e) => set('liveSiteUrl', e.target.value)} placeholder="https://…" />
             {errors.liveSiteUrl && <div className="field-error">{errors.liveSiteUrl}</div>}
           </div>

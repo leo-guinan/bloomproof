@@ -5,6 +5,24 @@ export function StatusBadge({ status }) {
   return <span className="badge badge-reviewed">Reviewed &amp; published</span>
 }
 
+// Honest tiers, derived from the entry file: never promise more than the entry has.
+export function EntryBadge({ entry, linked }) {
+  const tier =
+    entry.kind === 'app'
+      ? { cls: 'tag-app', text: 'Get the app' }
+      : entry.kind === 'code'
+        ? { cls: 'tag-code', text: 'See the code' }
+        : { cls: 'tag-live', text: 'See it live' }
+  if (linked) {
+    return (
+      <a className={`tag ${tier.cls}`} href={entry.artifactUrl} target="_blank" rel="noreferrer">
+        {tier.text}
+      </a>
+    )
+  }
+  return <span className={`tag ${tier.cls}`}>{tier.text}</span>
+}
+
 export default function Ledger({ entries }) {
   if (!entries.length) {
     return <p>Nothing matches that search. Try simpler words — or be the first to share this story.</p>
@@ -16,11 +34,7 @@ export default function Ledger({ entries }) {
           <span>
             <span className="ledger-title">{e.title}</span>
             <span className="ledger-meta">
-              {e.kind === 'app' ? (
-                <span className="tag tag-app">Get the app</span>
-              ) : (
-                <span className="tag tag-live">See it live</span>
-              )}
+              <EntryBadge entry={e} />
               <span>{e.humanName}</span>
               <StatusBadge status={e.status} />
             </span>

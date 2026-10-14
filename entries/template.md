@@ -1,6 +1,8 @@
 # Entry template
 
-The bar: every entry needs the story, the code, and a live artifact a reader can use right now — a repo alone is not enough. Copy this file to `NNN-short-name.md`, fill in every section, delete these instructions.
+The bar in one line: every entry needs the story, the code, and a named human shown actually using the artifact for its stated purpose (the human may be the author; "used" is the test, not "built").
+
+Submit as `entries/draft-<slug>.md` — the maintainer assigns the entry number on merge. Never reuse numbers.
 
 ## Problem
 
@@ -14,15 +16,13 @@ What does the AI do about it? Plain language, no jargon.
 
 - Code: (open-source repo URL — or the open dataset URL if the open artifact is data, not code)
 - Open license: (e.g. MIT, Apache-2.0, CC BY-SA 4.0, CC0)
-- Live site: (URL that opens in a browser and works right now, no install)
-- App: (mobile/desktop app URL — use this INSTEAD of Live site if the artifact is an app)
+- Live site: (browser, no install, works now — include at most one of this or the App line)
+- App: (mobile/desktop app URL — include at most one of this or the Live site line)
 - (Optional extra labeled lines for other relevant URLs: project site, dataset, paper)
-
-Keep exactly one of the Live site / App lines and delete the other. One rule: the site badge reads "See it live" for Live site entries and "Get the app" for App entries — the badge must link to that URL, never to the repo.
 
 ## Human
 
-Who did it help? Name them — their words if possible.
+Name the human and show the artifact in real use — a quote, a photo, a video, or a documented outcome they got from it.
 
 ## License
 

@@ -250,6 +250,7 @@ nav.main-nav a.nav-cta:hover { background: var(--moss-deep); }
 }
 .tag-live { background: #e6f3ea; color: var(--moss-deep); }
 .tag-app { background: var(--gold-wash); color: var(--gold); }
+.tag-code { background: #e8eefc; color: #2c4a9e; }
 a.tag { text-decoration: none; }
 .tag.type-repo { background: #e8eefc; color: #2c4a9e; }
 .tag.type-demo { background: #e6f3ea; color: var(--moss-deep); }

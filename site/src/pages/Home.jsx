@@ -47,8 +47,9 @@ export default function Home({ entries }) {
         </h1>
         <p className="lede">
           The internet is full of AI hype, and it is hard to tell what is real. So this site
-          keeps one simple promise: every story here links to a real project you can click,
-          try, and learn from — checked by a human before it appears.
+          keeps one simple promise: every story here links to real proof you can check
+          yourself — open the live site, get the app, or read the code. A human checks
+          each one before it appears.
         </p>
         <div className="hero-actions">
           <a
@@ -119,7 +120,7 @@ export default function Home({ entries }) {
           <span className="step-num" aria-hidden="true">1</span>
           <div>
             <b>You tell us about it</b>
-            <p>Who you helped, what the project does, and a link where anyone can try it.</p>
+            <p>Who you helped, what the project does, and a link to the proof.</p>
           </div>
         </li>
         <li>
@@ -165,9 +166,9 @@ export default function Home({ entries }) {
         <details open>
           <summary>Is this just more AI hype?</summary>
           <p>
-            That is exactly the problem we are solving. We publish nothing without a working
-            project behind it — something you can click and try. If the link does not work,
-            the story does not ship.
+            That is exactly the problem we are solving. We publish nothing without working
+            proof behind it — a live site, an app, or open code you can inspect yourself.
+            If the link does not work, the story does not ship.
           </p>
         </details>
         <details>

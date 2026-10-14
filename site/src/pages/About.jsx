@@ -63,7 +63,7 @@ export default function About() {
           <span className="step-num" aria-hidden="true">1</span>
           <div>
             <b>Someone shares a story in plain words</b>
-            <p>Who was helped, what the project does, and a link to try it.</p>
+            <p>Who was helped, what the project does, and a link to the proof.</p>
           </div>
         </li>
         <li>
@@ -77,7 +77,7 @@ export default function About() {
           <span className="step-num" aria-hidden="true">3</span>
           <div>
             <b>A real person checks the link</b>
-            <p>They open it, try it, and confirm it is shared openly. Then they publish it.</p>
+            <p>They open it, check it works, and confirm it is shared openly. Then they publish it.</p>
           </div>
         </li>
         <li>

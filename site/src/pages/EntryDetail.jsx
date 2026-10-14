@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { StatusBadge } from '../components/Ledger.jsx'
+import { StatusBadge, EntryBadge } from '../components/Ledger.jsx'
 
 const typeHint = {
   repo: 'The full project files, shared openly.',
@@ -26,11 +26,7 @@ export default function EntryDetail({ entries }) {
     <article style={{ paddingTop: 28 }}>
       <p className="ledger-meta">
         <StatusBadge status={entry.status} />
-        {entry.kind === 'app' ? (
-          <a className="tag tag-app" href={entry.artifactUrl} target="_blank" rel="noreferrer">Get the app</a>
-        ) : (
-          <a className="tag tag-live" href={entry.artifactUrl} target="_blank" rel="noreferrer">See it live</a>
-        )}
+        <EntryBadge entry={entry} linked />
       </p>
       <h1 style={{ fontSize: 'clamp(30px, 4vw, 44px)' }}>{entry.title}</h1>
 
@@ -63,9 +59,11 @@ export default function EntryDetail({ entries }) {
         </div>
         <aside>
           <div className="side-card highlight">
-            <h3>Try it yourself</h3>
+            <h3>{entry.kind === 'code' ? 'See the code' : 'Try it yourself'}</h3>
             <p style={{ fontSize: 14, color: 'var(--ink-soft)' }}>
-              {typeHint[entry.artifactType] || 'The working project, shared openly.'}
+              {entry.kind === 'code'
+                ? 'The open code itself — read it, run it, build on it.'
+                : (typeHint[entry.artifactType] || 'The working project, shared openly.')}
             </p>
             <dl className="kv">
               <dt>Shared as</dt>

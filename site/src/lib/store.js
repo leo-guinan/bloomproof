@@ -29,6 +29,7 @@ function toEntry(row) {
     attachmentUrl: row.attachmentUrl || '',
     extraLinks: row.extraLinks || [],
     origin: row.origin || 'community',
+    kind: row.kind || 'live',
     status: row.status || 'published',
     createdAt: row.createdAt || new Date().toISOString()
   }
@@ -54,6 +55,7 @@ export async function submitEntry(values) {
     humanQuote: values.humanQuote.trim(),
     attachmentUrl: values.attachmentUrl || '',
     extraLinks: values.extraLinks || [],
+    kind: values.kind || 'live',
     origin: 'community',
     status: 'pending',
     createdAt: new Date().toISOString()
