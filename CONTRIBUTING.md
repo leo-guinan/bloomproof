@@ -8,7 +8,7 @@ No working artifact, no entry. Takes don't ship.
 
 ## How to add an entry
 
-1. Copy `entries/template.md` to `entries/NNN-your-entry-name.md` (use the next available number).
+1. Copy `entries/template.md` to `entries/NNN-your-entry-name.md` (use the next available number — currently 008; numbers are never reused, see `entries/failed/`).
 2. Fill in every section: Problem, Solution, Artifact, Human, License.
 3. Open a pull request.
 
