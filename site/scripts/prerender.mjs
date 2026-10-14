@@ -87,6 +87,10 @@ const titleTag = template.match(/<title>.*?<\/title>/)?.[0] ?? fail('template ha
 const homeTitle = titleTag.slice(7, -8)
 const descTag = template.match(/<meta name="description"[^>]*>/)?.[0] ?? fail('template has no meta description')
 const homeDesc = descTag.match(/content="([^"]*)"/)?.[1] ?? fail('template meta description has no content')
+if (!template.includes('rel="icon"')) fail('template has no favicon link — index.html must link /favicon.ico')
+if (!template.includes('apple-touch-icon')) fail('template has no apple-touch-icon link — index.html must link /apple-touch-icon.png')
+if (!existsSync(join(outDir, 'favicon.ico'))) fail('favicon.ico missing from build output — expected Vite public/ dir passthrough')
+if (!existsSync(join(outDir, 'apple-touch-icon.png'))) fail('apple-touch-icon.png missing from build output — expected Vite public/ dir passthrough')
 
 const SITE = 'https://bloomproof.org'
 const pageCount = totalPages(entries.length)

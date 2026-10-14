@@ -410,6 +410,8 @@ a.page-link:hover { background: var(--slate-wash); }
 .backend-badge { font-family: var(--mono); font-size: 11px; border: 1px dashed #9aa5a1; border-radius: 999px; padding: 3px 10px; }
 
 @media (max-width: 760px) {
+  /* Keep content off the screen edges on small screens. */
+  .wrap { padding-left: 20px; padding-right: 20px; }
   .story-grid, .detail-grid, .guide-grid { grid-template-columns: 1fr; }
   .audience-list li, .terms > div { grid-template-columns: 1fr; }
   .qr-layout { grid-template-columns: 1fr; }
