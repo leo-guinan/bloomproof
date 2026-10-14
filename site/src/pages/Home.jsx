@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Ledger from '../components/Ledger.jsx'
+import { compareBrowse, totalPages, pageSlice, clampPage } from '../lib/pagination.js'
 
 function initials(name) {
   return name
@@ -22,6 +23,7 @@ function scrollToSection(id) {
 
 export default function Home({ entries }) {
   const [query, setQuery] = useState('')
+  const { num } = useParams()
   const featured = [...entries]
     .filter((e) => e.status !== 'pending')
     .sort(
@@ -31,12 +33,19 @@ export default function Home({ entries }) {
     )
     .slice(0, 3)
   const filtered = useMemo(() => {
+    const sorted = [...entries].sort(compareBrowse)
     const q = query.trim().toLowerCase()
-    if (!q) return entries
-    return entries.filter((e) =>
+    if (!q) return sorted
+    return sorted.filter((e) =>
       [e.title, e.problem, e.solution, e.humanName].join(' ').toLowerCase().includes(q)
     )
   }, [entries, query])
+  // Browsing paginates at 10 per page, newest first; searching shows every
+  // match on one list instead.
+  const searching = query.trim().length > 0
+  const pages = totalPages(filtered.length)
+  const page = searching ? 1 : clampPage(Number.parseInt(num, 10) || 1, filtered.length)
+  const visible = searching ? filtered : pageSlice(filtered, page)
 
   return (
     <>
@@ -157,7 +166,36 @@ export default function Home({ entries }) {
           aria-label="Search stories"
         />
       </div>
-      <Ledger entries={filtered} />
+      <Ledger entries={visible} />
+      {!searching && pages > 1 && (
+        <nav className="pagination" aria-label="Story pages">
+          {page > 1 ? (
+            <Link className="page-link" rel="prev" to={page === 2 ? '/' : `/page/${page - 1}`}>
+              ← Previous
+            </Link>
+          ) : (
+            <span className="page-link page-disabled">← Previous</span>
+          )}
+          {Array.from({ length: pages }, (_, i) => i + 1).map((p) =>
+            p === page ? (
+              <span key={p} className="page-link page-current" aria-current="page">
+                {p}
+              </span>
+            ) : (
+              <Link key={p} className="page-link" to={p === 1 ? '/' : `/page/${p}`}>
+                {p}
+              </Link>
+            )
+          )}
+          {page < pages ? (
+            <Link className="page-link" rel="next" to={`/page/${page + 1}`}>
+              Next →
+            </Link>
+          ) : (
+            <span className="page-link page-disabled">Next →</span>
+          )}
+        </nav>
+      )}
 
       <div className="section-head">
         <h2>Fair questions</h2>

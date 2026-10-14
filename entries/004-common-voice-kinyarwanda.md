@@ -18,6 +18,9 @@ Mozilla's Common Voice crowdsourced more than 1,700 hours of donated Kinyarwanda
 
 Kinyarwanda speakers in Rwanda — including blind users locked out of text-based information. More than 840 Rwandans donated the founding 1,700 hours after a Kigali hackathon. Audace Niyonkuru, CEO of Digital Umuganda: "with speech technology, no one will be left behind."
 
+Name: Audace Niyonkuru, Digital Umuganda CEO
+Quote: With speech technology, no one will be left behind.
+
 ## License
 
 CC0

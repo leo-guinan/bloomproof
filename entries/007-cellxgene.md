@@ -18,6 +18,9 @@ CZI's CELLxGENE Discover is a no-code, in-browser platform for exploring more th
 
 The Tabula Sapiens Consortium — more than 150 researchers across institutions who built a 24-organ human cell atlas on the platform — plus disease researchers using it to find which tissues COVID-19 attacks and which cell types drive lupus. Phil Smoot, CZI's head of science and technology: the tool is helping scientists "answer fundamental questions about human biology in seconds, not years."
 
+Name: Phil Smoot, CZI head of science and technology
+Quote: Answer fundamental questions about human biology in seconds, not years.
+
 ## License
 
 MIT

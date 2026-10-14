@@ -19,6 +19,9 @@ A free phone app called Nuru — "light" in Swahili. Point the camera at a leaf.
 
 Smallholder farmers in Kenya (Busia and Bungoma), Tanzania, Uganda, and Nigeria. Penn State's team also reaches ~500,000 Kenyan farmers by SMS with advice from the same system. PlantVillage founder David Hughes: the most satisfying part "has been to make a difference in the lives of the poorest people on the planet."
 
+Name: David Hughes, PlantVillage founder
+Quote: The most satisfying part has been to make a difference in the lives of the poorest people on the planet.
+
 ## License
 
 CC BY-SA (PlantVillage training dataset)

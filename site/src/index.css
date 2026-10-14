@@ -258,6 +258,22 @@ a.tag { text-decoration: none; }
 .tag.type-dataset { background: #faf3e3; color: var(--gold); }
 .ledger-arrow { font-size: 20px; color: var(--moss); }
 
+/* Pagination */
+.pagination { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 20px 0 8px; }
+.page-link {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+}
+a.page-link:hover { background: var(--slate-wash); }
+.page-current { background: var(--moss); border-color: var(--moss-deep); color: #fff; }
+.page-disabled { opacity: 0.45; }
+
 /* Toolbar */
 .toolbar { display: flex; gap: 10px; margin: 16px 0 4px; flex-wrap: wrap; }
 .toolbar input[type="search"] {

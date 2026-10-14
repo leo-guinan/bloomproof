@@ -17,6 +17,8 @@ MegaDetector, from Microsoft's AI for Good Lab, scans camera-trap images and fin
 
 The bininj and daluk rangers of Warddeken Land Management in West Arnhem Land, working with Charles Darwin University and CSIRO. Published October 2026 in Conservation Science and Practice: images needing review fell from 925,088 to 172,290 — an 81.4% reduction — and processing time dropped from six months to two. The freed time went to species identification, language documentation, and workshops. The tool is now used by more than 80 conservation organizations worldwide.
 
+Name: Bininj and daluk rangers, Warddeken Land Management
+
 ## License
 
 MIT

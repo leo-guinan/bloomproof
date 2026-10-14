@@ -18,6 +18,8 @@ AlphaFold predicts a protein's 3D structure from its amino-acid sequence in seco
 
 Dr. Su Datt Lam's team at the National University of Malaysia, using AlphaFold to map the proteins of the melioidosis bacterium and accelerate new drug development. Broader reach: more than 3 million researchers use the database, and over 30% of AlphaFold-related research now targets neglected diseases like malaria and leishmaniasis.
 
+Name: Dr. Su Datt Lam’s team, National University of Malaysia
+
 ## License
 
 Apache-2.0 (code) / CC BY 4.0 (database)

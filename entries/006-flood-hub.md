@@ -18,6 +18,8 @@ Google's Flood Hub uses neural-network models to forecast river flooding up to 7
 
 700 million people across 100 countries now receive 7-day flood warnings. The Red Cross and GiveDirectly use the forecasts to trigger cash transfers before floods hit. A Yale-partnered study found communities with local volunteers were 50% more likely to receive alerts before water reached their area — "a factor that can make a life-or-death difference." Project lead: Yossi Matias, Google's VP of Engineering and Crisis Response.
 
+Name: Yossi Matias, Flood Hub project lead
+
 ## License
 
 Apache-2.0

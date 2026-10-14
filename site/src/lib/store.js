@@ -1,8 +1,9 @@
-import { seedEntries } from '../data/seedEntries.js'
+import generatedEntries from '../data/entries.generated.json'
 
 const LOCAL_KEY = 'bloom-proof-submissions-v1'
 
 function readLocal() {
+  if (typeof localStorage === 'undefined') return []
   try {
     return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]')
   } catch {
@@ -35,9 +36,21 @@ function toEntry(row) {
   }
 }
 
-export async function loadEntries() {
+// Published entries from the markdown record. Synchronous and identical on
+// server and client, so prerendered HTML hydrates without mismatches.
+export function loadPublishedSync() {
+  return generatedEntries.map(toEntry)
+}
+
+// Published entries plus this browser's pending drafts. Drafts exist only
+// on the client, so call this after mount, never during first render.
+export function loadEntriesSync() {
   const local = readLocal().map(toEntry)
-  return [...local].reverse().concat(seedEntries)
+  return [...local].reverse().concat(loadPublishedSync())
+}
+
+export async function loadEntries() {
+  return loadEntriesSync()
 }
 
 export async function submitEntry(values) {
