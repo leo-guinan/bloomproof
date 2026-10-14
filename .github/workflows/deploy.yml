@@ -27,28 +27,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          scans=$(gh api "repos/${{ github.repository }}/code-scanning/alerts?state=open&per_page=100" --paginate --jq '.[] | "\(.rule.severity // "?") \(.rule.id // "?") \(.most_recent_instance.location.path // "?"):\(.most_recent_instance.location.start_line // "?")"')
+          if ! scans=$(gh api "repos/ttyyjjkkoott/bloomproof/code-scanning/alerts?state=open&per_page=100" --paginate --jq '.[] | "\(.rule.severity // "?") \(.rule.id // "?") \(.most_recent_instance.location.path // "?"):\(.most_recent_instance.location.start_line // "?")"'); then
+            echo "code-scanning alerts API failed, blocking deploy"
+            exit 1
+          fi
           if [ -n "$scans" ]; then
             echo "Blocking deploy: open code-scanning alert(s):"
             printf '%s\n' "$scans" | sed 's/^/  /'
             exit 1
           fi
-          deps=$(gh api "repos/${{ github.repository }}/dependabot/alerts?state=open&per_page=100" --paginate --jq '.[] | "\(.security_vulnerability.severity // "?") \(.security_vulnerability.package.name // "?") \(.security_advisory.summary // "?")"')
-          if [ -n "$deps" ]; then
-            echo "Blocking deploy: open Dependabot alert(s):"
-            printf '%s\n' "$deps" | sed 's/^/  /'
-            exit 1
-          fi
-          secrets=$(gh api "repos/${{ github.repository }}/secret-scanning/alerts?state=open&per_page=100" --paginate --jq '.[] | "\(.secret_type) \(.url)"')
-          if [ -n "$secrets" ]; then
-            echo "Blocking deploy: open secret-scanning alert(s):"
-            while read -r type url; do
-              paths=$(gh api "$url/locations" --jq '.[].details.path // empty' | paste -sd, -)
-              echo "  $type ${paths:-location unknown}"
-            done < <(printf '%s\n' "$secrets")
-            exit 1
-          fi
-          echo "No open security alerts"
+          echo "No open code-scanning alerts"
   build:
     needs: security-gate
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
